@@ -1,8 +1,5 @@
 <h1>Editing Book</h1>
 
-<%= render 'form', book: @book %>
-
-<% if false %>
  <%= form_with model:@book, local:true do |f| %>
   <p>Title</p>
     <%= f.text_field :title %>
@@ -10,9 +7,19 @@
     <%= f.text_area :body %>
   <div>
     <%= f.submit'Update Book' %>
+     <% if @book.errors.any? %>
+      <div>
+       <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
+        <ul>
+         <% @book.errors.full_messages.each do |message| %>
+         <li><%= message %></li>
+         <% end %>
+        </ul>
+      </div>
+     <% end %>
   </div>
  <% end %>
- <% end %>
+
  
 <%= link_to 'Show', @book %> |
 <%= link_to 'Back', books_path %>
